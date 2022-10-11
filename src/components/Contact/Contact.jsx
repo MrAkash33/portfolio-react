@@ -67,7 +67,7 @@ const Contact = () => {
       <div className="c-right">
         <form onSubmit={sendEmail} >
           <input type="text" name="user_name" className="user"  placeholder="Name" onChange={(e)=>{setUser(e.target.value)}}/>
-          <input type="text" name="user_email" className="user" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}}/>
+          <input type="email" name="user_email" className="user" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}}/>
           <textarea name="message" className="user" placeholder="Message" onChange={(e)=>{setMessage(e.target.value)}}/>
           {
             dis ? <input type="submit" value="Send"  className="button2" /> : <input type="submit" value="Send"  className="button" />
