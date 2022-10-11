@@ -1,0 +1,1 @@
+export const ApiUrl = 'https://contact-sytq.onrender.com/api/v1/feedback'
