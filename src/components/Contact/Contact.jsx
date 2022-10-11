@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
+import Swal from "sweetalert2";
 import "./Contact.css";
 import { themeContext } from "../../Context";
 import Validation from "../../validation";
@@ -11,6 +12,7 @@ const Contact = () => {
   const [user, setUser] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [dis, setDisable] = useState(false)
 
 
   const sendEmail = (e) => {
@@ -22,6 +24,7 @@ const Contact = () => {
   };
 
   const sendEmailApi = ( async () =>{
+    setDisable(true)
     const data = {
       "username":user,
       "email":email,
@@ -34,6 +37,16 @@ const Contact = () => {
       },
       body:JSON.stringify(data)
     })
+    if(response.status === 200){
+      Swal.fire({
+        icon: 'success',
+        html: `<p>Your information has been submitted </br>successfully.</p>`,
+      })
+      setTimeout(()=>{
+        window.location.reload()
+        setDisable(false)
+      },1100)
+    }
   })
 
   return (
@@ -56,8 +69,9 @@ const Contact = () => {
           <input type="text" name="user_name" className="user"  placeholder="Name" onChange={(e)=>{setUser(e.target.value)}}/>
           <input type="text" name="user_email" className="user" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}}/>
           <textarea name="message" className="user" placeholder="Message" onChange={(e)=>{setMessage(e.target.value)}}/>
-          <input type="submit" value="Send" className="button"/>
-          {/* <span>{done && "Thanks for Contacting me"}</span> */}
+          {
+            dis ? <input type="submit" value="Send"  className="button2" /> : <input type="submit" value="Send"  className="button" />
+          }
           <div
             className="blur c-blur1"
             style={{ background: "var(--purple)" }}
